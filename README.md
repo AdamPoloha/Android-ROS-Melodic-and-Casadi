@@ -95,8 +95,7 @@ apt install xubuntu-desktop
 
 apt-get autopurge snapd
 
-cat <<EOF | sudo tee /etc/apt/preferences.d/nosnap.prefrosdep init
-rosdep update
+cat <<EOF | tee /etc/apt/preferences.d/nosnap.pref
 # To prevent repository packages from triggering the installation of Snap,
 # this file forbids snapd from being installed by APT.
 # For more information: https://linuxmint-user-guide.readthedocs.io/en/latest/snap.html
@@ -111,7 +110,7 @@ http://wiki.ros.org/melodic/Installation/Ubuntu
 
 sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 
-curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
 apt update
 
 apt install ros-melodic-desktop
@@ -126,3 +125,27 @@ apt install python-rosdep python-rosinstall python-rosinstall-generator python-w
 rosdep init
 rosdep update
 
+Casadi for python 2.7:
+
+https://gmsanchez.github.io/2019/12/04/installing-casadi-on-a-raspberry-pi/
+
+apt-get install gcc g++ gfortran git cmake libclang-dev llvm-dev libblas3 libblas-dev liblapack3 liblapack-dev ocl-icd-opencl-dev pkg-config --install-recommends
+
+apt-get install swig ipython python-dev python-numpy python-scipy python-matplotlib --install-recommends
+
+apt install coinor-libipopt-dev
+
+git clone https://github.com/casadi/casadi.git -b 3.5.5
+cd casadi
+mkdir build
+cd build
+
+cmake -DPYTHON_EXECUTABLE=/usr/bin/python2 -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/aarch64-linux-gnu/libpython2.7.so -DNUMPY_PATH=/usr/include/python2.7/numpy -DWITH_PYTHON=ON -DWITH_QPOASES=ON -DWITH_LAPACK=ON -DWITH_IPOPT=ON -DWITH_HSL=OFF -DWITH_CLANG=OFF -DWITH_OPENCL=ON -DWITH_DL=ON -DWITH_BLASFEO=OFF -DWITH_BUILD_BLASFEO=OFF -DWITH_MUMPS=ON ..
+
+make -j4
+
+make install
+
+Setup vnc:
+
+cd ~/
