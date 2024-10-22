@@ -146,6 +146,20 @@ make -j4
 
 make install
 
+cd ~/
+
 Setup vnc:
 
-cd ~/
+https://gist.github.com/rikka0w0/895815ab1968a1be0f80f25e66fd61f5
+
+apt install xvfb x11vnc
+
+export DISPLAY=:0 
+Xvfb $DISPLAY -screen 0 1920x1080x16 &
+startxfce4 &
+x11vnc -display $DISPLAY -nopw -forever -loop -noxdamage -repeat -rfbport 5900 -shared -noshm -ncache 10
+
+Sensor passthrough:
+
+Ubuntu:
+python2 -m pip install pysocket
