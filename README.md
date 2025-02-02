@@ -9,32 +9,22 @@ In Termux: (You can use ssh)
 
 pkg update
 pkg upgrade
-pkg install tur-repo
-pkg install pulseaudio
-pkg install proot-distro
-pkg install wget
-pkg install git
-pkg install x11-repo
-pkg install root-repo
-pkg install termux-x11-nightly
+pkg install tur-repo pulseaudio proot-distro wget git x11-repo root-repo termux-x11-nightly
 pkg update
-pkg install tsu
-pkg install pulseaudio
-pkg install mc
-pkg install curl
+pkg install tsu pulseaudio mc curl
 
-mkdir /data/local/tmp/chrootubuntu
+sudo mkdir /data/local/tmp/chrootubuntu
 cd /data/local/tmp/chrootubuntu
 
-curl https://cdimage.ubuntu.com/ubuntu-base/releases/18.04.5/release/ubuntu-base-18.04.5-base-arm64.tar.gz --output ubuntu.tar.gz
+sudo curl https://cdimage.ubuntu.com/ubuntu-base/releases/18.04.5/release/ubuntu-base-18.04.5-base-arm64.tar.gz --output ubuntu.tar.gz
 
-tar xpvf ubuntu.tar.gz --numeric-owner
+sudo tar xpvf ubuntu.tar.gz --numeric-owner
 
-mkdir sdcard
-mkdir dev/shm
+sudo mkdir sdcard
+sudo mkdir dev/shm
 
 cd ../
-nano ./start.sh
+sudo nano ./start.sh
 
 Then copy in:
 #!/bin/sh
@@ -60,8 +50,8 @@ busybox chroot $UBUNTUPATH /bin/su - root
 
 Then press CTRL+S and CTRL+X and continue:
 
-chmod +x ./start.sh
-sh ./start.sh
+sudo chmod +x ./start.sh
+sudo sh ./start.sh
 
 Then in the ubuntu shell:
 
@@ -90,7 +80,10 @@ locale-gen en_GB.UTF-8
 
 apt install xubuntu-desktop
 
+apt-get remove blueman
+
 apt-get autopurge snapd
+#apt-get autoremove --purge snapd
 
 cat <<EOF | tee /etc/apt/preferences.d/nosnap.pref
 # To prevent repository packages from triggering the installation of Snap,
