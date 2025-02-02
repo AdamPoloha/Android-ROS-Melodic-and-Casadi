@@ -13,8 +13,7 @@ pkg install tur-repo
 pkg install pulseaudio
 pkg install proot-distro
 pkg install wget
-pkg install gitrosdep init
-rosdep update
+pkg install git
 pkg install x11-repo
 pkg install root-repo
 pkg install termux-x11-nightly
@@ -45,8 +44,6 @@ UBUNTUPATH="/data/local/tmp/chrootubuntu"
 
 # Fix setuid issue
 busybox mount -o remount,dev,suid /data
-rosdep init
-rosdep update
 busybox mount --bind /dev $UBUNTUPATH/dev
 busybox mount --bind /sys $UBUNTUPATH/sys
 busybox mount --bind /proc $UBUNTUPATH/proc
